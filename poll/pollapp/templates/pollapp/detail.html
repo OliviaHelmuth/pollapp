@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/98mprice/PSone.css@master/PSone.min.css"
+    />
+  </head>
+  <body>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'pollapp/style.css' %}"
+    />
+    <div>
+      <h1 class="option heading">{{ question.question_text }}</h1>
+      {% if error_message %}
+      <p>{{ error_message }}</p>
+      {% endif %}
+      <form action="{% url 'pollapp:vote' question.id %}" method="post">
+        {% csrf_token %} {% for choice in question.choice_set.all %}
+        <label>
+          <input
+            type="radio"
+            name="choice"
+            id="choice{{ forloop.counter }}"
+            value="{{ choice.id }}"
+            checked
+          />
+          <span class="option text choice" for="choice{{ forloop.counter }}">
+            {{ choice.choice_text }}
+            <span class="click"></span>
+          </span>
+        </label>
+        <br />
+        <br />
+        {% endfor %}
+        <div class="wrapper" id="customMargin">
+          <input class="btn" type="submit" value="vote" />
+          <button class="btn">
+            <a href="{% url 'pollapp:index' %}"
+              >or go back to the questions ?</a
+            >
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

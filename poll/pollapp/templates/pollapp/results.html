@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/98mprice/PSone.css@master/PSone.min.css"
+    />
+  </head>
+  <body>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'pollapp/style.css' %}"
+    />
+    <div>
+      <h1 class="option heading">{{ question.question_text }}</h1>
+      <ul>
+        {% for choice in question.choice_set.all %}
+        <li class="option text">
+          {{ choice.choice_text }} -- {{ choice.votes }}
+          vote{{choice.votes|pluralize }}
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="wrapper">
+        <button class="btn">
+          <a href="{% url 'pollapp:detail' question.id %}">Vote again ?</a>
+        </button>
+        <button class="btn">
+          <a href="{% url 'pollapp:index' %}">or go back to the questions ?</a>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
