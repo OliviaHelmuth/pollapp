@@ -1,1 +1,1 @@
-web: gunicorn poll.poll.wsgi
+web: cd poll && gunicorn poll.wsgi
