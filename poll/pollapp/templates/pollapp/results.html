@@ -17,7 +17,7 @@
       type="text/css"
       href="{% static 'pollapp/style.css' %}"
     />
-    <div>
+    <div class="main-wrapper">
       <h1 class="option heading">{{ question.question_text }}</h1>
       <ul>
         {% for choice in question.choice_set.all %}
